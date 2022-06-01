@@ -18,6 +18,10 @@
         <item name="colorAccent">@android:color/white</item>
 
     </style>
+    <style name="ThemeProgressBar2" parent="Theme.IfoodClone">
+        <item name="colorAccent">@color/cor_principal</item>
+
+    </style>
 
     <style name="CustomStyleTableLayout" parent="Theme.IfoodClone">
         <item name="android:textSize">14sp</item>

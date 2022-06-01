@@ -14,7 +14,10 @@
         android:theme="@style/Theme.IfoodClone"
         tools:targetApi="31">
         <activity
-            android:name=".UsuarioFinalizaCadastroActivity"
+            android:name=".usuario.UsuarioHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".usuario.UsuarioFinalizaCadastroActivity"
             android:exported="false" />
         <activity
             android:name=".activity.autenticacao.CriarContaActivity"

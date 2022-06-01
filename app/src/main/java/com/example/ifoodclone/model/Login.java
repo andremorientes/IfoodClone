@@ -3,7 +3,9 @@ package com.example.ifoodclone.model;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
 
-public class Login {
+import java.io.Serializable;
+
+public class Login implements Serializable {
 
     private String id;
     private String tipo;  //Usuario//Empresa

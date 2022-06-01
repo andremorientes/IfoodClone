@@ -1,6 +1,7 @@
 package com.example.ifoodclone.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,6 +19,7 @@ import com.example.ifoodclone.R;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.model.Login;
 import com.example.ifoodclone.model.Usuario;
+import com.example.ifoodclone.usuario.UsuarioFinalizaCadastroActivity;
 
 public class UsuarioFragment extends Fragment {
     private EditText edt_email;
@@ -84,7 +86,11 @@ public class UsuarioFragment extends Fragment {
                 Login login= new Login(id,"U",false);
                 login.salvar();
 
-                //getActivity().finish();
+                requireActivity().finish();
+                Intent intent = new Intent(requireActivity(), UsuarioFinalizaCadastroActivity.class);
+                intent.putExtra("login", login);
+                intent.putExtra("usuario", usuario);
+                startActivity(intent);
 
 
             }else{
