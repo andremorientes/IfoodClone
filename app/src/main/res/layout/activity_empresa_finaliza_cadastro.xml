@@ -6,4 +6,234 @@
     android:layout_height="match_parent"
     tools:context=".empresa.EmpresaFinalizaCadastroActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="100dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/sua_logo"
+                    android:scaleType="centerCrop"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Empresa"
+                android:textSize="16sp"
+                />
+
+            <EditText
+                android:id="@+id/edt_nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawablePadding="16dp"
+                android:background="@drawable/bg_edit2"
+                android:hint="Ex: Pizzaria do Chefe"
+                android:inputType="text"
+                android:padding="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Telefone"
+                android:textSize="16sp"
+                />
+
+            <com.santalu.maskara.widget.MaskEditText
+                android:id="@+id/edt_telefone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:layout_marginTop="8dp"
+                app:mask="(+258) __ ___ ____"
+                app:maskCharacter="_"
+                android:background="@drawable/bg_edit2"
+                android:padding="16dp"
+                android:drawablePadding="16dp"
+                android:hint="Ex:(+258) 84 572 3186"
+                app:maskStyle="completable" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taxa de entrega"/>
+
+                    <com.blackcat.currencyedittext.CurrencyEditText
+                        android:id="@+id/edt_taxa_entrega"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit2"
+                        android:padding="16dp"
+                        android:layout_marginTop="8dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pedido Minimo"/>
+
+                    <com.blackcat.currencyedittext.CurrencyEditText
+                        android:id="@+id/edt_pedido_minimo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit2"
+                        android:padding="16dp"
+                        android:layout_marginTop="8dp"
+
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginEnd="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tempo minimo(min)"/>
+
+                    <EditText
+                        android:id="@+id/edt_tempo_minimo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit2"
+                        android:padding="16dp"
+                        android:inputType="number"
+                        android:hint="Ex: 30 min"
+                        android:layout_marginTop="8dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tempo máximo(min)"/>
+
+                    <EditText
+                        android:id="@+id/edt_tempo_maximo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_edit2"
+                        android:padding="16dp"
+                        android:inputType="number"
+                        android:hint="Ex: 60 min"
+                        android:layout_marginTop="8dp"
+
+                        />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Categoria"/>
+
+            <EditText
+                android:id="@+id/edt_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_edit2"
+                android:hint="Ex: Lanches"
+                android:inputType="text"
+                android:padding="16dp" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Finalizar"
+                android:onClick="validaDados"
+                android:textAllCaps="false"
+                android:background="@drawable/bg_edit"
+                android:backgroundTint="@color/cor_principal"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:theme="@style/ThemeProgressBar2"/>
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
