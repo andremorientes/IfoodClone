@@ -11,6 +11,9 @@ public class Login implements Serializable {
     private String tipo;  //Usuario//Empresa
     private Boolean acesso;
 
+    public Login() {
+    }
+
     public Login(String id, String tipo, Boolean acesso) {
         this.id = id;
         this.tipo = tipo;
