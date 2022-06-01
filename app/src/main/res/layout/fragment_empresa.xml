@@ -22,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="24dp"
-            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
@@ -86,6 +85,7 @@
                 android:layout_marginTop="8dp"
                 android:theme="@style/ThemeProgressBar"
                 android:visibility="gone"
+                android:layout_gravity="center"
                 tools:visibility="visible"/>
 
 
