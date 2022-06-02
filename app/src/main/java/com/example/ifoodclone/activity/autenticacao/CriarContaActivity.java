@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.ifoodclone.R;
 import com.example.ifoodclone.adapter.ViewPagerAdapter;
-import com.example.ifoodclone.fragment.EmpresaFragment;
-import com.example.ifoodclone.fragment.UsuarioFragment;
+import com.example.ifoodclone.fragment.empresa.EmpresaFragment;
+import com.example.ifoodclone.fragment.usuario.UsuarioFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class CriarContaActivity extends AppCompatActivity {

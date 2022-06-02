@@ -35,13 +35,13 @@
             android:name=".activity.autenticacao.RecuperarContaActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.autenticacao.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.autenticacao.LoginActivity"
+            android:name=".activity.app.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

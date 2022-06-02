@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/cor_principal"
-    tools:context=".fragment.EmpresaFragment">
+    tools:context=".fragment.empresa.EmpresaFragment">
 
 
     <ScrollView
