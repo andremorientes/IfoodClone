@@ -35,10 +35,19 @@ public class Empresa implements Serializable {
         empresaRef.setValue(this);
 
         FirebaseUser user = FirebaseHelper.getAuth().getCurrentUser();
-        UserProfileChangeRequest perfil= new UserProfileChangeRequest.Builder()
-                .setDisplayName(getNome())
+        UserProfileChangeRequest perfil;
 
-                .build();
+        if (getUrlLogo()== null){
+             perfil= new UserProfileChangeRequest.Builder()
+                    .setDisplayName(getNome())
+                    .build();
+        }else {
+             perfil= new UserProfileChangeRequest.Builder()
+                    .setDisplayName(getNome())
+                    .setPhotoUri(Uri.parse(getUrlLogo()))
+                    .build();
+        }
+
         if (user != null) user.updateProfile(perfil);
     }
 

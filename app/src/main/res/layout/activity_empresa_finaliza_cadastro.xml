@@ -30,6 +30,7 @@
 
                 <ImageView
                     android:id="@+id/img_logo"
+                    android:onClick="selecionarLogo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/sua_logo"

@@ -49,4 +49,8 @@ dependencies {
     //https://github.com/BlacKCaT27/CurrencyEditText
     implementation'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
 
+
+    //https://github.com/ParkSangGwon/TedPermission
+    implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+
 }
