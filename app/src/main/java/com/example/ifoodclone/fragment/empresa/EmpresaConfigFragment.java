@@ -1,5 +1,6 @@
 package com.example.ifoodclone.fragment.empresa;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,60 +8,83 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.ifoodclone.R;
+import com.example.ifoodclone.empresa.EmpresaAddMaisActivity;
+import com.example.ifoodclone.empresa.EmpresaCategoriasActivity;
+import com.example.ifoodclone.empresa.EmpresaConfigActivity;
+import com.example.ifoodclone.empresa.EmpresaEnderecoActivity;
+import com.example.ifoodclone.empresa.EmpresaEntregasActivity;
+import com.example.ifoodclone.empresa.EmpresaRecebimentosActivity;
+import com.example.ifoodclone.helper.FirebaseHelper;
+import com.example.ifoodclone.usuario.UsuarioHomeActivity;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EmpresaConfigFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class EmpresaConfigFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ImageView img_logo;
+    private TextView text_empresa;
+    private LinearLayout menu_empresa;
+    private LinearLayout menu_categorias;
+    private LinearLayout menu_recebimentos;
+    private LinearLayout menu_add_mais;
+    private LinearLayout menu_endereco;
+    private LinearLayout menu_entregas;
+    private LinearLayout menu_deslogar;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public EmpresaConfigFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment EmpresaConfigFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static EmpresaConfigFragment newInstance(String param1, String param2) {
-        EmpresaConfigFragment fragment = new EmpresaConfigFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_empresa_config, container, false);
+        View view = inflater.inflate(R.layout.fragment_empresa_config, container, false);
+
+        iniciaComponentes(view);
+
+
+        configCliques();
+
+        configAcesso();
+        return view;
+    }
+
+    private void configAcesso(){
+
+        Picasso.get().load(FirebaseHelper.getAuth().getCurrentUser().getPhotoUrl()).into(img_logo);
+        text_empresa.setText(FirebaseHelper.getAuth().getCurrentUser().getDisplayName());
+    }
+
+    private void configCliques() {
+        menu_empresa.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaConfigActivity.class)));
+        menu_categorias.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaCategoriasActivity.class)));
+        menu_recebimentos.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaRecebimentosActivity.class)));
+        menu_add_mais.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaAddMaisActivity.class)));
+        menu_endereco.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaEnderecoActivity.class)));
+        menu_entregas.setOnClickListener(v -> startActivity(new Intent(requireActivity(), EmpresaEntregasActivity.class)));
+        menu_deslogar.setOnClickListener(v -> deslogar());
+    }
+
+    private  void deslogar(){
+        FirebaseHelper.getAuth().signOut();
+        requireActivity().finish();
+        startActivity(new Intent(requireActivity(), UsuarioHomeActivity.class));
+    }
+
+    private void iniciaComponentes(View view) {
+
+
+        img_logo = view.findViewById(R.id.img_logo);
+        text_empresa = view.findViewById(R.id.text_empresa);
+        menu_empresa = view.findViewById(R.id.menu_empresa);
+        menu_categorias = view.findViewById(R.id.menu_categorias);
+        menu_recebimentos = view.findViewById(R.id.menu_recebimentos);
+        menu_add_mais = view.findViewById(R.id.menu_add_mais);
+        menu_endereco = view.findViewById(R.id.menu_endereco);
+        menu_entregas = view.findViewById(R.id.menu_entregas);
+        menu_deslogar = view.findViewById(R.id.menu_deslogar);
     }
 }

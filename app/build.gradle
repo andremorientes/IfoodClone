@@ -52,7 +52,10 @@ dependencies {
     implementation'com.github.BlacKCaT27:CurrencyEditText:2.0.2'
 
 
-    //https://github.com/ParkSangGwon/TedPermission
+    //https://github.com/ParkSangGwon/TedPermission //PERMISAO PARA ACESSAR GALERIA
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'
+
+    //https://github.com/square/picasso //VISUALZIAR IMAGEM
+    implementation 'com.squareup.picasso:picasso:2.8'
 
 }

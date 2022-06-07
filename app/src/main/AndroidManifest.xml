@@ -17,6 +17,24 @@
         android:theme="@style/Theme.IfoodClone"
         tools:targetApi="31">
         <activity
+            android:name=".empresa.EmpresaEntregasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaEnderecoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaAddMaisActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaRecebimentosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaCategoriasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".empresa.EmpresaConfigActivity"
+            android:exported="false" />
+        <activity
             android:name=".usuario.UsuarioEnderecosActivity"
             android:exported="false" />
         <activity
