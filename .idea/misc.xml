@@ -14,7 +14,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/drawable/ic_password.xml" value="0.1005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/drawable/ic_telefone.xml" value="0.1005" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/drawable/ic_voltar.xml" value="0.1005" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/drawable/ic_voltar_black.xml" value="0.103" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_criar_conta.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_empresa_categorias.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_empresa_config.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_empresa_finaliza_cadastro.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_empresa_home.xml" value="0.17135416666666667" />
@@ -28,6 +30,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_usuario_finaliza_cadastro.xml" value="0.17282051282051283" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_usuario_home.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/activity_usuario_perfil.xml" value="0.16145833333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/dialog_add_categoria.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_config.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_usuario.xml" value="0.16145833333333334" />
@@ -36,6 +39,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_usuario_perfil.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_usuario_pesquisa.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/toolbar.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/toolbar_add.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/menu/bottom_nav_menu_empresa.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/menu/bottom_nav_menu_usuario.xml" value="0.17552083333333332" />
       </map>

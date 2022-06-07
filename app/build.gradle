@@ -58,4 +58,7 @@ dependencies {
     //https://github.com/square/picasso //VISUALZIAR IMAGEM
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    //https://github.com/tsuryo/Swipeable-RecyclerView //RECYCLER VIEW
+    implementation 'com.github.tsuryo:Swipeable-RecyclerView:1.1'
+
 }
