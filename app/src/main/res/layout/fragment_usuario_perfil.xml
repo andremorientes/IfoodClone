@@ -19,6 +19,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_logado"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -54,9 +56,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/divisor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <include layout="@layout/divisor"/>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/l_deslogado"
@@ -97,6 +107,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                     <android.widget.Button
+                        android:id="@+id/btn_entrar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -104,9 +115,11 @@
                         android:background="@drawable/bg_btn"
                         android:padding="16dp"
                         android:text="Entrar"
+                        android:textSize="16sp"
                         android:textAllCaps="false" />
 
                     <android.widget.Button
+                        android:id="@+id/btn_cadastrar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -114,6 +127,7 @@
                         android:background="@drawable/bg_btn"
                         android:padding="16dp"
                         android:text="Cadastrar"
+                        android:textSize="16sp"
                         android:textAllCaps="false" />
                 </LinearLayout>
 
@@ -123,6 +137,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/menu_perfil"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -172,6 +187,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/menu_favoritos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -221,6 +237,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/menu_enderecos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
@@ -245,7 +262,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
                         android:textColor="@color/black"
-                        android:text="Entregas"/>
+                        android:text="Enderecos"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -370,6 +387,7 @@
             <include layout="@layout/divisor"/>
 
             <LinearLayout
+                android:id="@+id/menu_deslogar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
