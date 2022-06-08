@@ -5,6 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -42,10 +43,18 @@ public class EmpresaCategoriasActivity extends AppCompatActivity implements Cate
     private int categoriaIndex = 0;
     private Boolean novaCategoria = true;
 
+
+    private int acesso = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empresa_categorias);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            acesso= bundle.getInt("acesso");
+        }
 
         iniciaComponentes();
 
@@ -150,7 +159,7 @@ public class EmpresaCategoriasActivity extends AppCompatActivity implements Cate
 
                 }
 
-                if (!categoriaList.isEmpty()){
+                if (!categoriaList.isEmpty()) {
                     text_info.setText("");
                 }
 
@@ -183,7 +192,7 @@ public class EmpresaCategoriasActivity extends AppCompatActivity implements Cate
 
             categoria.remover();
             categoriaList.remove(categoria);
-            if (categoriaList.isEmpty()){
+            if (categoriaList.isEmpty()) {
                 text_info.setText("Nenhuma categoria Cadastrada.");
             }
             categoriaAdapter.notifyDataSetChanged();
@@ -210,9 +219,22 @@ public class EmpresaCategoriasActivity extends AppCompatActivity implements Cate
 
     @Override
     public void OnClick(Categoria categoria, int position) {
-        categoriaSelecionada = categoria;
-        categoriaIndex = position;
-        novaCategoria = false;
-        showDialog();
+
+        if (acesso == 0) {
+
+            categoriaSelecionada = categoria;
+            categoriaIndex = position;
+            novaCategoria = false;
+
+            showDialog();
+
+        } else if (acesso == 1) {
+            Intent intent = new Intent();
+            intent.putExtra("categoriaSelecionada", categoria);
+            setResult(RESULT_OK, intent);
+            finish();
+
+        }
+
     }
 }
