@@ -48,6 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.text_criar_conta).setOnClickListener(v ->
                 startActivity(new Intent(this, CriarContaActivity.class)));
 
+        findViewById(R.id.text_recuperar_conta).setOnClickListener(v -> {
+            startActivity(new Intent(this, RecuperarContaActivity.class));
+        });
+
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
     }
 

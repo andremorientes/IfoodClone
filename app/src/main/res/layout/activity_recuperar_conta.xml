@@ -37,7 +37,7 @@
                 android:textAlignment="center"/>
 
             <EditText
-                android:id="@+id/edt_senha"
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
