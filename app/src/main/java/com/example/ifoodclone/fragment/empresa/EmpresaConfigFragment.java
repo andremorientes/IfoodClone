@@ -48,8 +48,13 @@ public class EmpresaConfigFragment extends Fragment {
 
         configCliques();
 
-        configAcesso();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        configAcesso();
     }
 
     private void configAcesso(){

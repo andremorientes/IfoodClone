@@ -115,7 +115,7 @@ public class GetMask {
     }
 
     public static String getValor(double valor){
-        NumberFormat nf = new DecimalFormat("###,#0.00", new DecimalFormatSymbols(
+        NumberFormat nf = new DecimalFormat("#,##0.00", new DecimalFormatSymbols(
                 new Locale("PT", "mz")));
         return nf.format(valor);
     }
