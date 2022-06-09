@@ -88,8 +88,8 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
         Picasso.get().load(produto.getUrlImagem()).into(img_produto);
         edt_nome.setText(produto.getNome());
-        edt_valor.setText(String.valueOf(produto.getValor()));
-        edt_valor_antigo.setText(String.valueOf(produto.getValorAntigo()));
+        edt_valor.setText(String.valueOf(produto.getValor()*10));
+        edt_valor_antigo.setText(String.valueOf(produto.getValorAntigo()*10));
         edt_descricao.setText(produto.getDescricao());
 
 
