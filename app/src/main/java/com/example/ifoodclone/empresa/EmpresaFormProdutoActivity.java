@@ -1,5 +1,6 @@
 package com.example.ifoodclone.empresa;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +28,19 @@ import com.example.ifoodclone.R;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.model.Categoria;
 import com.example.ifoodclone.model.Produto;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.normal.TedPermission;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,6 +61,8 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
     private Produto produto;
     private String caminhoImagem;
+    private Boolean novoProduto= true;
+    private  TextView text_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +70,57 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_empresa_form_produto);
 
         iniciaComponentes();
+
+        Bundle bundle= getIntent().getExtras();
+        if (bundle!=null){
+            produto = (Produto) bundle.getSerializable("produtoSelecionado");
+
+            configDados();
+
+        }
+
+
         configCliques();
+    }
+
+    private void configDados(){
+        //Recuperar os daddos par poder editar
+
+        Picasso.get().load(produto.getUrlImagem()).into(img_produto);
+        edt_nome.setText(produto.getNome());
+        edt_valor.setText(String.valueOf(produto.getValor()));
+        edt_valor_antigo.setText(String.valueOf(produto.getValorAntigo()));
+        edt_descricao.setText(produto.getDescricao());
+
+
+        recuperaCategorias();
+        text_toolbar.setText("Edição");
+
+        novoProduto= false;
+
+    }
+
+    private void recuperaCategorias() {
+        DatabaseReference categoriasRef = FirebaseHelper.getDatabaseReference()
+                .child("categorias")
+                .child(FirebaseHelper.getIdFirebase())
+                        .child(produto.getIdCategoria());
+        categoriasRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Categoria categoria= snapshot.getValue(Categoria.class);
+                if (categoria!= null){
+                    btn_categoria.setText(categoria.getNome());
+                    categoriaSelecionada= categoria;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void configCliques(){
@@ -100,6 +160,24 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
                         produto.setValorAntigo(valorAntigo);
                         produto.setIdCategoria(categoriaSelecionada.getId());
                         produto.setDescricao(descricao);
+
+                        if(novoProduto){ //Verificar se é novo produto ou uma edição
+                            if (caminhoImagem!= null){
+                                salvarImagemFirebase();
+                            }else{
+                                ocultarTeclado();
+                                Snackbar.make(
+                                       img_produto,"Selecione a imagem",Snackbar.LENGTH_SHORT
+                                ).show();
+                            }
+                        }else{
+                            if (caminhoImagem!= null){
+                                salvarImagemFirebase();
+                            }else{
+                                produto.salvar();
+                            }
+
+                        }
 
                        salvarImagemFirebase();
 
@@ -168,7 +246,9 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
             produto.setUrlImagem(task.getResult().toString());
             produto.salvar();
-            finish();
+            if (novoProduto){
+                finish();
+            }
 
         })).addOnFailureListener(e -> erroSalvarProduto(e.getMessage()));
     }
@@ -185,7 +265,7 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
     }
 
     private void iniciaComponentes(){
-        TextView  text_toolbar= findViewById(R.id.text_toolbar);
+        text_toolbar= findViewById(R.id.text_toolbar);
         text_toolbar.setText("Novo Produto");
 
         img_produto= findViewById(R.id.img_produto);
