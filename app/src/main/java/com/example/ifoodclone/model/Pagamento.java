@@ -1,11 +1,23 @@
 package com.example.ifoodclone.model;
 
+import com.example.ifoodclone.helper.FirebaseHelper;
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.List;
+
 public class Pagamento {
 
     private String descricao;
     private boolean status= false;
 
     public Pagamento() {
+    }
+
+    public static void salvar(List<Pagamento> pagamentoList){
+        DatabaseReference pagamentoRef= FirebaseHelper.getDatabaseReference()
+                .child("recebimentos")
+                .child(FirebaseHelper.getIdFirebase());
+        pagamentoRef.setValue(pagamentoList);
     }
 
     public String getDescricao() {

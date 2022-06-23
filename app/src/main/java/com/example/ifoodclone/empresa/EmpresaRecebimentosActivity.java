@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -51,10 +52,13 @@ public class EmpresaRecebimentosActivity extends AppCompatActivity {
 
         iniciaComponentes();
         configCliques();
+        recuperaPagamentos();
     }
 
     private void configCliques() {
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
+
+        ib_salvar.setOnClickListener(v -> salvarPagamentos());
 
         //DINHEIRO NA ENTREGA
         cb_de.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -84,7 +88,31 @@ public class EmpresaRecebimentosActivity extends AppCompatActivity {
             cartaoCreditoApp.setStatus(isChecked);
 
         });
+
+
     }
+
+    private void salvarPagamentos() {
+        if(cb_de.isChecked()){
+            if (!pagamentoList.contains(dinheiro)) pagamentoList.add(dinheiro);
+        }
+        if(cb_dr.isChecked()){
+            if (pagamentoList.contains(dinheiroEntrega)) pagamentoList.add(dinheiroEntrega);
+        }
+        if(cb_cce.isChecked()){
+            if (pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
+        }
+        if(cb_ccr.isChecked()){
+            if (pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
+        }
+        if(cb_app.isChecked()){
+            if (pagamentoList.contains(cartaoCreditoApp)) pagamentoList.add(cartaoCreditoApp);
+        }
+
+
+        Pagamento.salvar(pagamentoList);
+
+        }
 
     private void recuperaPagamentos() {
         DatabaseReference pagamentoRef = FirebaseHelper.getDatabaseReference()
@@ -93,10 +121,17 @@ public class EmpresaRecebimentosActivity extends AppCompatActivity {
         pagamentoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    Pagamento pagamento = ds.getValue(Pagamento.class);
-                    configPagamentos(pagamento);
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        Pagamento pagamento = ds.getValue(Pagamento.class);
+                        pagamentoList.add(pagamento);
+
+                    }
+                    configPagamentos();
+                } else {
+                    configSalvar(false);
                 }
+
             }
 
             @Override
@@ -107,37 +142,56 @@ public class EmpresaRecebimentosActivity extends AppCompatActivity {
 
     }
 
-    private void configPagamentos(Pagamento pagamento) {
-        switch (pagamento.getDescricao()) {
-            case "Dinheiro na entrega":
-                dinheiro = pagamento;
-                cb_de.setChecked(dinheiro.getStatus());
-                break;
+    private void configSalvar(boolean progress) {
 
-            case "Dinheiro na retirada":
-                dinheiroEntrega =pagamento;
-                cb_dr.setChecked(dinheiroEntrega.getStatus());
-                break;
-
-            case "Cartão de crédito na entrega":
-                cartaoCreditoEntrega = pagamento;
-                cb_cce.setChecked( cartaoCreditoEntrega.getStatus());
-                break;
-
-            case "Cartão de crédito na retirada":
-                cartaoCreditoRetirada = pagamento;
-                cb_ccr.setChecked(cartaoCreditoRetirada.getStatus());
-                break;
-
-            case "Cartão de crédito no App":
-                cartaoCreditoApp= pagamento;
-                cb_app.setChecked(cartaoCreditoApp.getStatus());
-                break;
-
+        if (progress) {
+            progressBar.setVisibility(View.VISIBLE);
+            ib_salvar.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            ib_salvar.setVisibility(View.VISIBLE);
         }
+
+
+    }
+
+    private void configPagamentos() {
+
+        for (Pagamento pagamento : pagamentoList) {
+            switch (pagamento.getDescricao()) {
+                case "Dinheiro na entrega":
+                    dinheiro = pagamento;
+                    cb_de.setChecked(dinheiro.getStatus());
+                    break;
+
+                case "Dinheiro na retirada":
+                    dinheiroEntrega = pagamento;
+                    cb_dr.setChecked(dinheiroEntrega.getStatus());
+                    break;
+
+                case "Cartão de crédito na entrega":
+                    cartaoCreditoEntrega = pagamento;
+                    cb_cce.setChecked(cartaoCreditoEntrega.getStatus());
+                    break;
+
+                case "Cartão de crédito na retirada":
+                    cartaoCreditoRetirada = pagamento;
+                    cb_ccr.setChecked(cartaoCreditoRetirada.getStatus());
+                    break;
+
+                case "Cartão de crédito no App":
+                    cartaoCreditoApp = pagamento;
+                    cb_app.setChecked(cartaoCreditoApp.getStatus());
+                    break;
+
+            }
+        }
+        configSalvar(false);
+
     }
 
     private void validaPagamentos() {
+
 
     }
 
