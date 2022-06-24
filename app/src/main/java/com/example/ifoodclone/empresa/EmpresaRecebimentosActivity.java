@@ -97,16 +97,16 @@ public class EmpresaRecebimentosActivity extends AppCompatActivity {
             if (!pagamentoList.contains(dinheiro)) pagamentoList.add(dinheiro);
         }
         if(cb_dr.isChecked()){
-            if (pagamentoList.contains(dinheiroEntrega)) pagamentoList.add(dinheiroEntrega);
+            if (!pagamentoList.contains(dinheiroEntrega)) pagamentoList.add(dinheiroEntrega);
         }
         if(cb_cce.isChecked()){
-            if (pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
+            if (!pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
         }
         if(cb_ccr.isChecked()){
-            if (pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
+            if (!pagamentoList.contains(cartaoCreditoRetirada)) pagamentoList.add(cartaoCreditoRetirada);
         }
         if(cb_app.isChecked()){
-            if (pagamentoList.contains(cartaoCreditoApp)) pagamentoList.add(cartaoCreditoApp);
+            if (!pagamentoList.contains(cartaoCreditoApp)) pagamentoList.add(cartaoCreditoApp);
         }
 
 
