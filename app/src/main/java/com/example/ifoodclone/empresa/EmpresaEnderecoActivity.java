@@ -18,7 +18,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmpresaEnderecoActivity extends AppCompatActivity {
+
 
     private EditText edt_logradouro;
     private EditText edt_bairro;
@@ -51,8 +55,11 @@ public class EmpresaEnderecoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    endereco = snapshot.getValue(Endereco.class);
-                    configDados();
+                    for (DataSnapshot ds :snapshot.getChildren()){
+                        endereco = ds.getValue(Endereco.class);
+                        configDados();
+                    }
+
                 }else{
                     configSalvar(false);
                 }
@@ -83,6 +90,7 @@ public class EmpresaEnderecoActivity extends AppCompatActivity {
         edt_logradouro.setText(endereco.getLogradouro());
         edt_bairro.setText(endereco.getBairro());
         edt_municipio.setText(endereco.getMunicipio());
+
         configSalvar(false);
     }
 

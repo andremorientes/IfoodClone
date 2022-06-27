@@ -3,21 +3,40 @@ package com.example.ifoodclone.model;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.google.firebase.database.DatabaseReference;
 
-public class Endereco {
+import java.io.Serializable;
 
+public class Endereco implements Serializable {
+    private String id;
     private String logradouro;
     private String bairro;
     private String municipio;
+    private String referencia;
 
-    public Endereco() {
-
+    public Endereco()  {
+        DatabaseReference enderecoRef= FirebaseHelper.getDatabaseReference();
+        setId(enderecoRef.push().getKey());
     }
 
     public void salvar(){
         DatabaseReference enderecoRef= FirebaseHelper.getDatabaseReference()
                 .child("enderecos")
-                .child(FirebaseHelper.getIdFirebase());
+                .child(FirebaseHelper.getIdFirebase())
+                .child(getId());
         enderecoRef.setValue(this);
+    }
+
+    public void remover(){
+        DatabaseReference enderecoRef= FirebaseHelper.getDatabaseReference()
+                .child("enderecos")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(getId());
+        enderecoRef.removeValue();
+    }
+
+    public String getId() {return id;}
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLogradouro() {
@@ -42,5 +61,13 @@ public class Endereco {
 
     public void setMunicipio(String municipio) {
         this.municipio = municipio;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
     }
 }
