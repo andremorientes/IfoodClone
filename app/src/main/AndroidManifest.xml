@@ -17,6 +17,9 @@
         android:theme="@style/Theme.IfoodClone"
         tools:targetApi="31">
         <activity
+            android:name=".empresa.EmpresaCardapioActivity"
+            android:exported="false" />
+        <activity
             android:name=".usuario.UsuarioFormEnderecoActivity"
             android:exported="false" />
         <activity

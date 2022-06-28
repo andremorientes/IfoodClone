@@ -52,7 +52,8 @@ public class EmpresasAdapter extends RecyclerView.Adapter<EmpresasAdapter.MyView
         if (empresa.getTaxaEntrega()> 0){
             holder.text_taxa_entrega.setText(context.getString(R.string.text_valor, GetMask.getValor(empresa.getTaxaEntrega())));
         }else{
-            holder.text_taxa_entrega.setTextColor(Color.parseColor("2ED67E"));
+           //holder.text_taxa_entrega.setTextColor(Color.parseColor("2ED67E"));
+            holder.text_taxa_entrega.setTextColor(Color.parseColor("#2ED67E"));
             holder.text_taxa_entrega.setText("ENTREGA GRÁTIS");
 
         }

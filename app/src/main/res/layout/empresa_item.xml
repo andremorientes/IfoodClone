@@ -28,7 +28,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    app:cardCornerRadius="2dp">
+                    app:cardCornerRadius="25dp">
                     <ImageView
                         android:id="@+id/img_logo_empresa"
                         android:layout_width="match_parent"

@@ -1,5 +1,6 @@
 package com.example.ifoodclone.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.ifoodclone.R;
 import com.example.ifoodclone.adapter.EmpresasAdapter;
+import com.example.ifoodclone.empresa.EmpresaCardapioActivity;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.model.Empresa;
 import com.google.firebase.database.DataSnapshot;
@@ -96,6 +98,8 @@ public class UsuarioHomeFragment extends Fragment implements EmpresasAdapter.OnC
 
     @Override
     public void OnClick(Empresa empresa) {
-        Toast.makeText(requireContext(), empresa.getNome(), Toast.LENGTH_SHORT).show();
+        Intent intent= new Intent(requireActivity(), EmpresaCardapioActivity.class);
+        intent.putExtra("empresaSelecionada", empresa);
+        startActivity(intent);
     }
 }

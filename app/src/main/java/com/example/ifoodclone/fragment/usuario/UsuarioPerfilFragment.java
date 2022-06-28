@@ -71,9 +71,10 @@ public class UsuarioPerfilFragment extends Fragment {
         btn_entrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), LoginActivity.class)));
         btn_cadastrar.setOnClickListener(v -> startActivity(new Intent(requireActivity(), CriarContaActivity.class)));
         menu_deslogar.setOnClickListener(v -> deslogar());
-        menu_perfil.setOnClickListener(v -> startActivity(new Intent(requireActivity(), UsuarioPerfilActivity.class)));
-        menu_favoritos.setOnClickListener(v -> startActivity(new Intent(requireActivity(), UsuarioFavoritosActivity.class)));
-        menu_enderecos.setOnClickListener(v -> startActivity(new Intent(requireActivity(), UsuarioEnderecosActivity.class)));
+
+        menu_perfil.setOnClickListener(v -> verificaAutenticacao(UsuarioPerfilActivity.class));
+        menu_favoritos.setOnClickListener(v -> verificaAutenticacao(UsuarioFavoritosActivity.class));
+        menu_enderecos.setOnClickListener(v -> verificaAutenticacao(UsuarioEnderecosActivity.class));
     }
 
     private void deslogar() {
@@ -81,6 +82,14 @@ public class UsuarioPerfilFragment extends Fragment {
         FirebaseHelper.getAuth().signOut(); // Deslogar do fireBase
 
         Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(R.id.menu_home); //APOS DESLOGAR VOLTAR PARA O HOME
+    }
+
+    private void verificaAutenticacao(Class<?> clazz){
+        if (FirebaseHelper.getAutenticado()){
+            startActivity(new Intent(requireActivity(), clazz));
+        }else{
+            startActivity(new Intent(requireActivity(), LoginActivity.class));
+        }
     }
 
     private void iniciaComponentes(View view) {
