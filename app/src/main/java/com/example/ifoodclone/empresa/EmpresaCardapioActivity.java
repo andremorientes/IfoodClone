@@ -41,10 +41,10 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
 
     private AdapterCardapio adapterCardapio;
 
-    private List<Produto> produtoList = new ArrayList<>();
-    private List<Categoria> categoriaList = new ArrayList<>();
-    private List<String> idsCategoriaList = new ArrayList<>();
-    private List<CategoriaCardapio> categoriaCardapioList= new ArrayList<>();
+    private final List<Produto> produtoList = new ArrayList<>();
+    private final List<Categoria> categoriaList = new ArrayList<>();
+    private final List<String> idsCategoriaList = new ArrayList<>();
+    private final List<CategoriaCardapio> categoriaCardapioList = new ArrayList<>();
 
     private final List<String> favoritoList = new ArrayList<>();
     private final Favorito favorito = new Favorito();
@@ -84,11 +84,11 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
         recuperaProdutos();
     }
 
-    private void configRv(){
-    rv_categorias.setLayoutManager(new LinearLayoutManager(this));
-    rv_categorias.setHasFixedSize(true);
-    adapterCardapio= new AdapterCardapio(categoriaCardapioList,getBaseContext());
-    rv_categorias.setAdapter(adapterCardapio);
+    private void configRv() {
+        rv_categorias.setLayoutManager(new LinearLayoutManager(this));
+        rv_categorias.setHasFixedSize(true);
+        adapterCardapio = new AdapterCardapio(categoriaCardapioList, this);
+        rv_categorias.setAdapter(adapterCardapio);
     }
 
     private void recuperaProdutos() {
@@ -105,7 +105,7 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
                         produtoList.add(produto);
                         configListCategoria(produto);
                     }
-                    if (!idsCategoriaList.isEmpty()){
+                    if (!idsCategoriaList.isEmpty()) {
                         recuperaCategorias();
                     }
                     text_info.setText("");
@@ -125,8 +125,8 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
     }
 
     private void configListCategoria(Produto produto) {
-        boolean contem= false;
-        for (String idCategoria: idsCategoriaList){
+        boolean contem = false;
+        for (String idCategoria : idsCategoriaList) {
             if (idCategoria.equals(produto.getIdCategoria())) {
                 contem = true;
                 break;
@@ -139,17 +139,17 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
 
     private void recuperaCategorias() {
 
-        for(String idCategoria: idsCategoriaList){
+        for (String idCategoria : idsCategoriaList) {
             DatabaseReference categoriasRef = FirebaseHelper.getDatabaseReference()
                     .child("categorias")
                     .child(empresa.getId())
-                            .child(idCategoria);
+                    .child(idCategoria);
             categoriasRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Categoria categoria = snapshot.getValue(Categoria.class);
                     categoriaList.add(categoria);
-                    if(categoriaList.size()== idsCategoriaList.size()){
+                    if (categoriaList.size() == idsCategoriaList.size()) {
                         produtoPorCategoria();
                     }
 
@@ -165,15 +165,15 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
     }
 
     private void produtoPorCategoria() {
-        List<Produto> produtoListTemp= new ArrayList<>();
+        List<Produto> produtoListTemp = new ArrayList<>();
 
-        for (Categoria categoria: categoriaList){
-            for(Produto produto: produtoList){
-                if(categoria.getId().equals(produto.getIdCategoria())){
+        for (Categoria categoria : categoriaList) {
+            for (Produto produto : produtoList) {
+                if (categoria.getId().equals(produto.getIdCategoria())) {
                     produtoListTemp.add(produto);
                 }
             }
-            categoriaCardapioList.add(new CategoriaCardapio(categoria.getNome(),produtoListTemp));
+            categoriaCardapioList.add(new CategoriaCardapio(categoria.getNome(), produtoListTemp));
             adapterCardapio.notifyDataSetChanged();
             progressBar.setVisibility(View.GONE);
 

@@ -1,5 +1,6 @@
 package com.example.ifoodclone.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +20,11 @@ import java.util.List;
 public class AdapterCardapio extends RecyclerView.Adapter<AdapterCardapio.MyViewHolder> {
 
     private final List<CategoriaCardapio> categoriaList;
-    private final Context context;
+    private final Activity activity;
 
-    public AdapterCardapio(List<CategoriaCardapio> categoriaList, Context context) {
+    public AdapterCardapio(List<CategoriaCardapio> categoriaList, Activity activity) {
         this.categoriaList = categoriaList;
-        this.context = context;
+        this.activity = activity;
     }
 
     @NonNull
@@ -41,9 +42,9 @@ public class AdapterCardapio extends RecyclerView.Adapter<AdapterCardapio.MyView
 
         holder.textCategoriaNome.setText(categoria.getNome());
 
-        holder.rvProdutos.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false));
+        holder.rvProdutos.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL, false));
         holder.rvProdutos.setHasFixedSize(true);
-        AdapterProdutoCardapio adapterProdutoCardapio= new AdapterProdutoCardapio(categoria.getProdutoList(),context);
+        AdapterProdutoCardapio adapterProdutoCardapio= new AdapterProdutoCardapio(categoria.getProdutoList(),activity);
         holder.rvProdutos.setAdapter(adapterProdutoCardapio);
 
         adapterProdutoCardapio.notifyDataSetChanged();
