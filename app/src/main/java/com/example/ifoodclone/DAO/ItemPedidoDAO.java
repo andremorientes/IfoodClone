@@ -29,7 +29,7 @@ public class ItemPedidoDAO {
     public void salvar(ItemPedido itemPedido) {
 
         ContentValues cv = new ContentValues();
-        cv.put(DbHelper.COLUNA_ID_FIREBASE, itemPedido.getId());
+        cv.put(DbHelper.COLUNA_ID_FIREBASE, itemPedido.getItem());
         cv.put(DbHelper.COLUNA_NOME, itemPedido.getItem());
         cv.put(DbHelper.COLUNA_URL_IMAGEM, itemPedido.getUrlImagem());
         cv.put(DbHelper.COLUNA_VALOR, itemPedido.getValor());

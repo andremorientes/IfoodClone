@@ -46,8 +46,8 @@ import java.util.Locale;
 
 public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
-    private final int REQUEST_CATEGORIA= 100;
-    private final int REQUEST_GALERIA= 200;
+    private final int REQUEST_CATEGORIA = 100;
+    private final int REQUEST_GALERIA = 200;
 
     private ImageView img_produto;
     private EditText edt_nome;
@@ -57,12 +57,12 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
     private EditText edt_descricao;
     private LinearLayout l_edt_descricao;
 
-    private Categoria categoriaSelecionada= null;
+    private Categoria categoriaSelecionada = null;
 
     private Produto produto;
     private String caminhoImagem;
-    private Boolean novoProduto= true;
-    private  TextView text_toolbar;
+    private Boolean novoProduto = true;
+    private TextView text_toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,49 +71,43 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
         iniciaComponentes();
 
-        Bundle bundle= getIntent().getExtras();
-        if (bundle!=null){
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
             produto = (Produto) bundle.getSerializable("produtoSelecionado");
 
             configDados();
-
         }
 
-
         configCliques();
+
     }
 
     private void configDados(){
-        //Recuperar os daddos par poder editar
-
         Picasso.get().load(produto.getUrlImagem()).into(img_produto);
         edt_nome.setText(produto.getNome());
-        edt_valor.setText(String.valueOf(produto.getValor()*10));
-        edt_valor_antigo.setText(String.valueOf(produto.getValorAntigo()*10));
+        edt_valor.setText(String.valueOf(produto.getValor()));
+        edt_valor_antigo.setText(String.valueOf(produto.getValorAntigo()));
         edt_descricao.setText(produto.getDescricao());
 
+        recuperaCategoria();
 
-        recuperaCategorias();
+        novoProduto = false;
         text_toolbar.setText("Edição");
-
-        novoProduto= false;
-
     }
 
-    private void recuperaCategorias() {
+    private void recuperaCategoria(){
         DatabaseReference categoriasRef = FirebaseHelper.getDatabaseReference()
                 .child("categorias")
                 .child(FirebaseHelper.getIdFirebase())
-                        .child(produto.getIdCategoria());
+                .child(produto.getIdCategoria());
         categoriasRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Categoria categoria= snapshot.getValue(Categoria.class);
-                if (categoria!= null){
+                Categoria categoria = snapshot.getValue(Categoria.class);
+                if(categoria != null){
                     btn_categoria.setText(categoria.getNome());
-                    categoriaSelecionada= categoria;
+                    categoriaSelecionada = categoria;
                 }
-
             }
 
             @Override
@@ -125,81 +119,75 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
     private void configCliques(){
         findViewById(R.id.ib_voltar).setOnClickListener(v -> finish());
-        btn_categoria.setOnClickListener(v ->{
-            Intent intent= new Intent(this, EmpresaCategoriasActivity.class);
-            intent.putExtra("acesso",1);
-            startActivityForResult(intent,REQUEST_CATEGORIA);
+
+        btn_categoria.setOnClickListener(v -> {
+            Intent intent = new Intent(this, EmpresaCategoriasActivity.class);
+            intent.putExtra("acesso", 1);
+            startActivityForResult(intent, REQUEST_CATEGORIA);
         });
 
-        l_edt_descricao.setOnClickListener(v ->{
-            mostrarTeclado();
+        l_edt_descricao.setOnClickListener(v -> {
+            mostrarTelclado();
             edt_descricao.requestFocus();
         });
 
         img_produto.setOnClickListener(v -> verificaPermissaoGaleria());
     }
 
-    public  void validaDados(View view){
-        String nome= edt_nome.getText().toString().trim();
-        double valor= (double) edt_valor.getRawValue()/100;
-        double valorAntigo= (double) edt_valor_antigo.getRawValue()/100;
-        String descricao= edt_descricao.getText().toString().trim();
+    public void validaDados(View view){
+        String nome = edt_nome.getText().toString().trim();
+        double valor = (double) edt_valor.getRawValue() / 100;
+        double valorAntigo = (double) edt_valor_antigo.getRawValue() / 100;
+        String descricao = edt_descricao.getText().toString().trim();
 
-        if (!nome.isEmpty()){
-
-            if (valor>0){
-                if(categoriaSelecionada!=null){
-                    if (!descricao.isEmpty()){
+        if(!nome.isEmpty()){
+            if(valor > 0){
+                if(categoriaSelecionada != null){
+                    if(!descricao.isEmpty()){
 
                         ocultarTeclado();
 
-                       if (produto==null ) produto= new Produto();
-
+                        if(produto == null) produto = new Produto();
                         produto.setNome(nome);
                         produto.setValor(valor);
                         produto.setValorAntigo(valorAntigo);
                         produto.setIdCategoria(categoriaSelecionada.getId());
                         produto.setDescricao(descricao);
 
-                        if(novoProduto){ //Verificar se é novo produto ou uma edição
-                            if (caminhoImagem!= null){
+                        if(novoProduto){
+                            if(caminhoImagem != null){
                                 salvarImagemFirebase();
-                            }else{
+                            }else {
                                 ocultarTeclado();
                                 Snackbar.make(
-                                       img_produto,"Selecione a imagem",Snackbar.LENGTH_SHORT
+                                        img_produto,
+                                        "Selecione a imagem.",
+                                        Snackbar.LENGTH_SHORT
                                 ).show();
                             }
-                        }else{
-                            if (caminhoImagem!= null){
+                        }else {
+                            if(caminhoImagem != null){
                                 salvarImagemFirebase();
-                            }else{
+                            }else {
                                 produto.salvar();
                             }
-
                         }
 
-                       salvarImagemFirebase();
-
-                    }else{
+                    }else {
                         edt_descricao.requestFocus();
                         edt_descricao.setError("Informe uma descrição.");
-
                     }
-
-                }else{
+                }else {
                     ocultarTeclado();
-                    erroSalvarProduto("Selecione uma categoria para o produto");
+                    erroSalvarProduto("Selecione uma categoria para o produto.");
                 }
-
-            }else{
+            }else {
                 edt_valor.requestFocus();
-                edt_valor.setError("Informe um valor válido");
+                edt_valor.setError("Informe um valor válido.");
             }
-
-        }else{
+        }else {
             edt_nome.requestFocus();
-            edt_nome.setError("Informe um nome");
+            edt_nome.setError("Informe um nome.");
         }
 
     }
@@ -209,19 +197,19 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
             @Override
             public void onPermissionGranted() {
                 abrirGaleria();
-
             }
 
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(getBaseContext(), "Permissão negada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "Permissão negada.", Toast.LENGTH_SHORT).show();
             }
+
         };
 
         TedPermission.create()
                 .setPermissionListener(permissionlistener)
-                .setDeniedTitle("Permissão negada")
-                .setDeniedMessage("Se você não aceitar a permissão não poderá acessar a Galeria do dispositivo , deseja activar permissão?")
+                .setDeniedTitle("Permissão negada.")
+                .setDeniedMessage("Se você não aceitar a permissão não poderá acessar a Galeria do dispositivo, deseja ativar a permissão agora ?")
                 .setDeniedCloseButtonText("Não")
                 .setGotoSettingButtonText("Sim")
                 .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -229,79 +217,81 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
 
     }
 
-    public void abrirGaleria(){
-        Intent  intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+    private void abrirGaleria(){
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, REQUEST_GALERIA);
     }
 
-    private  void salvarImagemFirebase(){
+    private void salvarImagemFirebase(){
         StorageReference storageReference = FirebaseHelper.getStorageReference()
                 .child("imagens")
                 .child("produtos")
                 .child(FirebaseHelper.getIdFirebase())
                 .child(produto.getId() + ".JPEG");
-        UploadTask uploadTask= storageReference.putFile(Uri.parse(caminhoImagem));
-        uploadTask.addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnCompleteListener(task -> {
 
+        UploadTask uploadTask = storageReference.putFile(Uri.parse(caminhoImagem));
+        uploadTask.addOnSuccessListener(taskSnapshot -> storageReference.getDownloadUrl().addOnCompleteListener(task -> {
 
             produto.setUrlImagem(task.getResult().toString());
             produto.salvar();
-            if (novoProduto){
+
+            if(novoProduto){
                 finish();
             }
 
         })).addOnFailureListener(e -> erroSalvarProduto(e.getMessage()));
     }
 
-    private void erroSalvarProduto(String msg) {
+    private void erroSalvarProduto(String msg){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Atençao");
+        builder.setTitle("Atenção");
         builder.setMessage(msg);
         builder.setPositiveButton("OK", ((dialog, which) -> {
             dialog.dismiss();
         }));
+
         AlertDialog dialog = builder.create();
         dialog.show();
+
     }
 
     private void iniciaComponentes(){
-        text_toolbar= findViewById(R.id.text_toolbar);
-        text_toolbar.setText("Novo Produto");
+        text_toolbar = findViewById(R.id.text_toolbar);
+        text_toolbar.setText("Novo produto");
 
-        img_produto= findViewById(R.id.img_produto);
-        edt_nome= findViewById(R.id.edt_nome);
+        img_produto = findViewById(R.id.img_produto);
+        edt_nome = findViewById(R.id.edt_nome);
 
-        edt_valor= findViewById(R.id.edt_valor);
+        edt_valor = findViewById(R.id.edt_valor);
         edt_valor.setLocale(new Locale("PT", "mz"));
 
-        edt_valor_antigo= findViewById(R.id.edt_valor_antigo);
+        edt_valor_antigo = findViewById(R.id.edt_valor_antigo);
         edt_valor_antigo.setLocale(new Locale("PT", "mz"));
 
-        btn_categoria= findViewById(R.id.btn_categoria);
-        edt_descricao= findViewById(R.id.edt_descricao);
-        l_edt_descricao= findViewById(R.id.l_edt_descricao);
-
+        btn_categoria = findViewById(R.id.btn_categoria);
+        edt_descricao = findViewById(R.id.edt_descricao);
+        l_edt_descricao = findViewById(R.id.l_edt_descricao);
     }
 
-    private void mostrarTeclado(){
-        InputMethodManager imm=(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);
+    private void mostrarTelclado(){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
-    private  void ocultarTeclado(){
+    private void ocultarTeclado(){
         ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
-                edt_nome.getWindowToken(),0
+                edt_nome.getWindowToken(), 0
         );
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode== RESULT_OK){
-            if (requestCode==REQUEST_CATEGORIA){
-                categoriaSelecionada= (Categoria) data.getSerializableExtra("categoriaSelecionada");
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_CATEGORIA){
+                categoriaSelecionada = (Categoria) data.getSerializableExtra("categoriaSelecionada");
                 btn_categoria.setText(categoriaSelecionada.getNome());
-            }else if(requestCode== REQUEST_GALERIA){
+            }else if(requestCode == REQUEST_GALERIA){
                 Bitmap bitmap;
 
                 Uri imagemSelecionada = data.getData();
@@ -326,4 +316,5 @@ public class EmpresaFormProdutoActivity extends AppCompatActivity {
             }
         }
     }
+
 }
