@@ -17,6 +17,9 @@
         android:theme="@style/Theme.IfoodClone"
         tools:targetApi="31">
         <activity
+            android:name=".CarrinhoActivity"
+            android:exported="false" />
+        <activity
             android:name=".empresa.EmpresaFormProdutoActivity"
             android:exported="false" />
         <activity
@@ -25,7 +28,8 @@
         <activity
             android:name=".usuario.UsuarioFormEnderecoActivity"
             android:exported="false" />
-        <activity android:name=".empresa.EmpresaProdutoDetalhesActivity"
+        <activity
+            android:name=".empresa.EmpresaProdutoDetalhesActivity"
             android:exported="false" />
         <activity
             android:name=".empresa.EmpresaEntregasActivity"

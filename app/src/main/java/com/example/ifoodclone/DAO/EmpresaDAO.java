@@ -3,7 +3,6 @@ package com.example.ifoodclone.DAO;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.RestrictionEntry;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -51,7 +50,6 @@ public class EmpresaDAO {
             @SuppressLint("Range") int tempo_minimo = cursor.getInt(cursor.getColumnIndex(DbHelper.COLUNA_TEMPO_MINIMO));
             @SuppressLint("Range") int tempo_maximo = cursor.getInt(cursor.getColumnIndex(DbHelper.COLUNA_TEMPO_MAXIMO));
             @SuppressLint("Range") String url_logo = cursor.getString(cursor.getColumnIndex(DbHelper.COLUNA_URL_IMAGEM));
-
             empresa = new Empresa();
             empresa.setId(id_firebase);
             empresa.setNome(nome);
