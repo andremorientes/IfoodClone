@@ -1,7 +1,6 @@
 package com.example.ifoodclone.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,12 +19,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class AdapterProdutoCardapio extends RecyclerView.Adapter<AdapterProdutoCardapio.MyViewHolder> {
+public class ProdutoCardapioAdapter extends RecyclerView.Adapter<ProdutoCardapioAdapter.MyViewHolder> {
 
     private final List<Produto> produtoList;
     private final Activity activity;
 
-    public AdapterProdutoCardapio(List<Produto> produtoList, Activity activity) {
+    public ProdutoCardapioAdapter(List<Produto> produtoList, Activity activity) {
         this.produtoList = produtoList;
         this.activity = activity;
     }

@@ -49,7 +49,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardImagem"
-                tools:text="Suco de maracujá (300ml)" />
+                tools:text="Coca-cola (300ml)" />
 
             <TextView
                 android:id="@+id/textPrecoProduto"
@@ -60,7 +60,7 @@
                 android:textColor="@android:color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="R$ 6,00" />
+                tools:text="150 MZn" />
 
             <ImageButton
                 android:id="@+id/ibAdd"

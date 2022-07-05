@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.ifoodclone.R;
 import com.example.ifoodclone.activity.autenticacao.LoginActivity;
-import com.example.ifoodclone.adapter.AdapterCardapio;
+import com.example.ifoodclone.adapter.CardapioAdapter;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.helper.GetMask;
 import com.example.ifoodclone.model.Categoria;
@@ -23,7 +23,6 @@ import com.example.ifoodclone.model.CategoriaCardapio;
 import com.example.ifoodclone.model.Empresa;
 import com.example.ifoodclone.model.Favorito;
 import com.example.ifoodclone.model.Produto;
-import com.google.android.gms.dynamic.IFragmentWrapper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +30,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.like.LikeButton;
 import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
-import com.tsuryo.swipeablerv.SwipeableRecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class EmpresaCardapioActivity extends AppCompatActivity {
 
-    private AdapterCardapio adapterCardapio;
+    private CardapioAdapter adapterCardapio;
 
     private final List<Produto> produtoList = new ArrayList<>();
     private final List<Categoria> categoriaList = new ArrayList<>();
@@ -87,7 +84,7 @@ public class EmpresaCardapioActivity extends AppCompatActivity {
     private void configRv() {
         rv_categorias.setLayoutManager(new LinearLayoutManager(this));
         rv_categorias.setHasFixedSize(true);
-        adapterCardapio = new AdapterCardapio(categoriaCardapioList, this);
+        adapterCardapio = new CardapioAdapter(categoriaCardapioList, this);
         rv_categorias.setAdapter(adapterCardapio);
     }
 
