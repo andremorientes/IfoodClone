@@ -79,7 +79,7 @@ public class EmpresaProdutoDetalhesActivity extends AppCompatActivity {
             if(produto.getIdEmpresa().equals(empresaDAO.getEmpresa().getId())){
                 salvarProduto();
             }else {
-                Snackbar.make(btn_adicionar, "Empresas difentes.", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(btn_adicionar, "Empresas diferentes.", Snackbar.LENGTH_LONG).show();
             }
         }else {
             salvarProduto();

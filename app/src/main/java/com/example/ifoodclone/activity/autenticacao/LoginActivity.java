@@ -116,8 +116,8 @@ public class LoginActivity extends AppCompatActivity {
         if (login != null) {
             if (login.getTipo().equals("U")) {
                 if (login.getAcesso()){
+                    setResult(RESULT_OK, new Intent());
                     finish();
-                    startActivity(new Intent(this, UsuarioHomeActivity.class));
                 }else{
                    recuperaUsuario();
                 }

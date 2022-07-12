@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ifoodclone.DAO.EmpresaDAO;
 import com.example.ifoodclone.R;
 import com.example.ifoodclone.adapter.SelecionaEnderecoAdapter;
 import com.example.ifoodclone.adapter.SelecionaPagamentoAdapter;
@@ -24,21 +25,26 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity implements SelecionaPagamentoAdapter.OnClickListener {
 
     private SelecionaPagamentoAdapter selecionaPagamentoAdapter;
-    private List<Pagamento> pagamentoList;
+    private List<Pagamento> pagamentoList= new ArrayList<>();
 
     private RecyclerView rv_pagamentos;
     private ProgressBar progressBar;
     private TextView text_info;
+
+    private EmpresaDAO empresaDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usuario_seleciona_pagamento);
+
+        empresaDAO= new EmpresaDAO(getBaseContext());
 
         iniciaComponentes();
 
@@ -60,7 +66,7 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
     private void recuperaPagamentos() {
         DatabaseReference pagamentoRef = FirebaseHelper.getDatabaseReference()
                 .child("recebimentos")
-                .child(FirebaseHelper.getIdFirebase());
+                .child(empresaDAO.getEmpresa().getId());
         pagamentoRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -70,6 +76,7 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
                         pagamentoList.add(pagamento);
 
                     }
+                    text_info.setText("");
                 } else {
                     text_info.setText("Nenhuma forma de pagamento habilitada");
                 }
@@ -96,13 +103,16 @@ public class UsuarioSelecionaPagamentoActivity extends AppCompatActivity impleme
         TextView text_toolbar = findViewById(R.id.text_toolbar);
         text_toolbar.setText("Formas de pagamento");
 
-        rv_pagamentos = findViewById(R.id.rv_enderecos);
+        rv_pagamentos = findViewById(R.id.rv_pagamentos);
         progressBar = findViewById(R.id.progressBar);
         text_info = findViewById(R.id.text_info);
     }
 
     @Override
     public void OnClick(Pagamento pagamento) {
-        Toast.makeText(this, "Pagamento Selecionado", Toast.LENGTH_SHORT).show();
+        Intent intent =  new Intent();
+        intent.putExtra("pagamentoSelecionado", pagamento);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
