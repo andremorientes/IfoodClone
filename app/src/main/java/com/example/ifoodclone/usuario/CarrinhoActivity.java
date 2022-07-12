@@ -22,6 +22,7 @@ import com.example.ifoodclone.activity.autenticacao.LoginActivity;
 import com.example.ifoodclone.adapter.CarrinhoAdapter;
 import com.example.ifoodclone.adapter.ProdutoCarrinhoAdapter;
 import com.example.ifoodclone.helper.FirebaseHelper;
+import com.example.ifoodclone.helper.GetMask;
 import com.example.ifoodclone.model.Endereco;
 import com.example.ifoodclone.model.ItemPedido;
 import com.example.ifoodclone.model.Pagamento;
@@ -59,6 +60,11 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
     private TextView text_logradouro;
     private TextView text_referencia;
 
+
+    private TextView text_subtotal;
+    private TextView text_taxa_entrega;
+    private TextView text_total;
+
     private List<Produto> produtoList = new ArrayList<>();
 
     private ItemPedidoDAO itemPedidoDAO;
@@ -80,6 +86,24 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         recuperaIdsItensAddMais();
 
         recuperaEnderecos();
+
+        configSaldoCarrinho();
+    }
+
+    private void configSaldoCarrinho(){
+        double subtotal=0;
+        double taxa_entrega=0;
+        double total=0;
+
+        if (!itemPedidoDAO.getList().isEmpty()){
+            subtotal = itemPedidoDAO.getTotal();
+            taxa_entrega= empresaDAO.getEmpresa().getTaxaEntrega();
+            total= subtotal+ taxa_entrega;
+        }
+
+        text_subtotal.setText(getString(R.string.text_valor, GetMask.getValor(subtotal)));
+        text_taxa_entrega.setText(getString(R.string.text_valor, GetMask.getValor(taxa_entrega)));
+        text_total.setText(getString(R.string.text_valor, GetMask.getValor(total)));
     }
 
     private void recuperaEnderecos() {
@@ -266,8 +290,13 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         text_logradouro = findViewById(R.id.text_logradouro);
         text_referencia = findViewById(R.id.text_referencia);
 
+
         text_forma_pagamento= findViewById(R.id.text_forma_pagamento);
         text_escolher_pagamento= findViewById(R.id.text_escolher_pagamento);
+
+        text_subtotal= findViewById(R.id.text_subtotal);
+        text_taxa_entrega= findViewById(R.id.text_taxa_entrega);
+        text_total =findViewById(R.id.text_total);
 
     }
 

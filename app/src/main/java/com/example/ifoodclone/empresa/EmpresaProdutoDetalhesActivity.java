@@ -29,6 +29,8 @@ import com.squareup.picasso.Picasso;
 
 public class EmpresaProdutoDetalhesActivity extends AppCompatActivity {
 
+    private final int REQUEST_CARDAPIO= 100;
+
     private ImageView img_produto;
     private TextView text_produto;
     private TextView text_descricao;
