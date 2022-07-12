@@ -1,5 +1,6 @@
 package com.example.ifoodclone.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class SelecionaEnderecoAdapter extends RecyclerView.Adapter<SelecionaEnde
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Endereco endereco = enderecoList.get(position);
 
         holder.text_logradouro.setText(endereco.getLogradouro());
