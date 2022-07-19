@@ -11,7 +11,7 @@ public class Produto implements Serializable {
 
     private String id;
     private String nome;
-    private String idLocal;
+    private Long idLocal;
     private String idEmpresa;
     private String idCategoria;
     private Double valor;
@@ -68,11 +68,11 @@ public class Produto implements Serializable {
     }
 
     @Exclude
-    public String getIdLocal() {
+    public Long getIdLocal() {
         return idLocal;
     }
 
-    public void setIdLocal(String idLocal) {
+    public void setIdLocal(Long idLocal) {
         this.idLocal = idLocal;
     }
 

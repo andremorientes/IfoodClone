@@ -73,7 +73,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
     private Button btn_add_mais;
 
     private List<Produto> produtoList = new ArrayList<>();
-    private List<ItemPedido> itemPedidoList= new ArrayList<>();
+    private List<ItemPedido> itemPedidoList = new ArrayList<>();
 
     private ItemPedidoDAO itemPedidoDAO;
     private EmpresaDAO empresaDAO;
@@ -98,7 +98,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         setContentView(R.layout.activity_carrinho);
 
         itemPedidoDAO = new ItemPedidoDAO(getBaseContext());
-        itemPedidoList= itemPedidoDAO.getList();
+        itemPedidoList = itemPedidoDAO.getList();
         empresaDAO = new EmpresaDAO(getBaseContext());
         entregaDAO = new EntregaDAO(getBaseContext());
 
@@ -110,6 +110,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         recuperaEnderecos();
 
         configSaldoCarrinho();
+
     }
 
 
@@ -127,6 +128,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         text_atualizar = view.findViewById(R.id.text_atualizar);
 
         produto = new Produto();
+        produto.setIdLocal(itemPedido.getId());
         produto.setNome(itemPedido.getItem());
         produto.setId(itemPedido.getItem());
         produto.setValor(itemPedido.getValor());
@@ -140,7 +142,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         text_total_produto_dialog.setText(getString(R.string.text_valor,
                 GetMask.getValor(produto.getValor() * itemPedido.getQuantidade())));
 
-        quantidade= itemPedido.getQuantidade();
+        quantidade = itemPedido.getQuantidade();
 
 
     }
@@ -149,13 +151,13 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
 
         text_qtd_produto.setText(String.valueOf(quantidade));
         text_total_produto_dialog.setText(getString(R.string.text_valor,
-                GetMask.getValor(produto.getValor()* quantidade)));
+                GetMask.getValor(produto.getValor() * quantidade)));
 
     }
 
-    private void addQtdItem(){
+    private void addQtdItem() {
         quantidade++;
-        if (quantidade==1){
+        if (quantidade == 1) {
             ib_remove.setImageResource(R.drawable.ic_remove_red);
             text_total_produto_dialog.setVisibility(View.VISIBLE);
             text_atualizar.setText("Atualizar");
@@ -167,29 +169,29 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         configValoresDialog();
     }
 
-    private void delQtdItem(){
-        if (quantidade>0){
+    private void delQtdItem() {
+        if (quantidade > 0) {
             quantidade--;
 
-            if (quantidade==0){ //REMOVER DO CARRINHO
+            if (quantidade == 0) { //REMOVER DO CARRINHO
                 ib_remove.setImageResource(R.drawable.ic_remove);
                 text_total_produto_dialog.setVisibility(View.GONE);
                 text_atualizar.setText("Remover");
                 text_atualizar.setGravity(Gravity.CENTER);
 
-                text_atualizar.setOnClickListener( v -> {
+                text_atualizar.setOnClickListener(v -> {
                     itemPedidoDAO.remover(itemPedido.getId());
                     itemPedidoList.remove(itemPedido);
 
 
-
+                    addMaisList();
                     configSaldoCarrinho();
                     configBtnAddMais();
 
                     carrinhoAdapter.notifyDataSetChanged();
                     bottomSheetDialog.dismiss();
                 });
-            }else{
+            } else {
                 text_atualizar.setOnClickListener(v -> {
                     atualizarItem();
                 });
@@ -198,16 +200,16 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
         configValoresDialog();
     }
 
-    private void configBtnAddMais(){
-        if (itemPedidoList.isEmpty()){
+    private void configBtnAddMais() {
+        if (itemPedidoList.isEmpty()) {
             ll_btn_add_mais.setVisibility(View.GONE);
 
-        }else{
+        } else {
             ll_btn_add_mais.setVisibility(View.VISIBLE);
         }
     }
 
-    private void atualizarItem(){
+    private void atualizarItem() {
         itemPedido.setQuantidade(quantidade);
         itemPedidoDAO.actualizar(itemPedido);
         carrinhoAdapter.notifyDataSetChanged();
@@ -234,7 +236,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
 
     private void recuperaEnderecos() {
 
-        if (FirebaseHelper.getAutenticado()) {
+        if (FirebaseHelper.getAutenticado() && entregaDAO.getEndereco() == null) {
             DatabaseReference enderecoRef = FirebaseHelper.getDatabaseReference()
                     .child("enderecos")
                     .child(FirebaseHelper.getIdFirebase());
@@ -266,6 +268,8 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
     }
 
     private void configEndereco() {
+
+        endereco = entregaDAO.getEndereco();
         if (endereco != null) {
             text_logradouro.setText(endereco.getLogradouro());
             text_referencia.setText(endereco.getReferencia());
@@ -293,6 +297,37 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
                 text_escolher_pagamento.setText("Trocar");
             }
         }
+    }
+
+    private void configLayoutAddMais() {
+        if (produtoList.isEmpty()) {
+            ll_add_mais.setVisibility(View.GONE);
+        } else {
+            ll_add_mais.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void addMaisList() {
+        boolean contem = false;
+        if (produtoList.size()==0){
+            produtoList.add(produto);
+        }else{
+            for (Produto prod : produtoList){
+                if (prod.getId().equals(produto.getId())){
+                    contem= true;
+                    break;
+                }
+            }
+            if (!contem){
+                produtoList.add(produto);
+            }
+        }
+
+        configLayoutAddMais();
+
+        produtoCarrinhoAdapter.notifyDataSetChanged();
+
+
     }
 
     private void configCliques() {
@@ -359,7 +394,7 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
 
                     recuperaProdutos(idsItensList);
                 } else {
-                    ll_add_mais.setVisibility(View.GONE);
+                    configLayoutAddMais();
                 }
             }
 
@@ -435,13 +470,34 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
 
     @Override
     public void OnClick(ItemPedido itemPedido) {// RV PRINCIPAL
-        this.itemPedido= itemPedido;
+        this.itemPedido = itemPedido;
         showBottomSheet();
     }
 
     @Override
     public void OnClick(Produto produto) { //PEÇA MAIS
 
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setQuantidade(1);
+        itemPedido.setItem(produto.getNome());
+        itemPedido.setIdTem(produto.getId());
+        itemPedido.setValor(produto.getValor());
+        itemPedido.setUrlImagem(produto.getUrlImagem());
+
+
+
+        long id = itemPedidoDAO.salvar(itemPedido);
+        itemPedido.setId(id);
+
+        itemPedidoList.add(itemPedido);
+        carrinhoAdapter.notifyDataSetChanged();
+
+        produtoList.remove(produto);
+        produtoCarrinhoAdapter.notifyDataSetChanged();
+
+        configSaldoCarrinho();
+
+        configLayoutAddMais();
     }
 
     @Override
@@ -454,13 +510,13 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
                 startActivityForResult(intent, REQUEST_ENDERECO);
             } else if (requestCode == REQUEST_ENDERECO) {
                 endereco = (Endereco) data.getSerializableExtra("enderecoSelecionado");
-                configEndereco();
 
                 if (entregaDAO.getEndereco() == null) {
                     entregaDAO.salvarEndereco(endereco);
                 } else {
                     entregaDAO.actualizarEndereco(endereco);
                 }
+                configEndereco();
             } else if (requestCode == REQUEST_PAGAMENTO) {
                 pagamento = (Pagamento) data.getSerializableExtra("pagamentoSelecionado");
                 configPagamento();

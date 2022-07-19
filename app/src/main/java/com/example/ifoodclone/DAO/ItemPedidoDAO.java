@@ -26,7 +26,9 @@ public class ItemPedidoDAO {
         read = dbHelper.getReadableDatabase();
     }
 
-    public void salvar(ItemPedido itemPedido) {
+    public long salvar(ItemPedido itemPedido) {
+
+        long id = 0;
 
         ContentValues cv = new ContentValues();
         cv.put(DbHelper.COLUNA_ID_FIREBASE, itemPedido.getItem());
@@ -36,11 +38,12 @@ public class ItemPedidoDAO {
         cv.put(DbHelper.COLUNA_QUANTIDADE, itemPedido.getQuantidade());
 
         try {
-            write.insert(DbHelper.TABELA_ITEM_PEDIDO, null, cv);
+            id = write.insert(DbHelper.TABELA_ITEM_PEDIDO, null, cv);
             Log.i("INFO_DB", "onCreate: Sucesso ao salvar a tabela");
         } catch (Exception e) {
             Log.i("INFO_DB", "onCreate: Erro ao salvar a tabela");
         }
+        return id;
     }
 
     public void actualizar(ItemPedido itemPedido) {
@@ -86,12 +89,12 @@ public class ItemPedidoDAO {
         return itemPedidoList;
     }
 
-    public Double getTotal(){
-        double total= 0;
-        for(ItemPedido itemPedido: getList()){
-            total+= itemPedido.getValor() *itemPedido.getQuantidade();
+    public Double getTotal() {
+        double total = 0;
+        for (ItemPedido itemPedido : getList()) {
+            total += itemPedido.getValor() * itemPedido.getQuantidade();
         }
-        return  total;
+        return total;
     }
 
     public void remover(Long id) {
@@ -107,9 +110,9 @@ public class ItemPedidoDAO {
 
     }
 
-    public  void removerTodos(){
+    public void removerTodos() {
         try {
-            write.delete(DbHelper.TABELA_ITEM_PEDIDO, null,null);
+            write.delete(DbHelper.TABELA_ITEM_PEDIDO, null, null);
             Log.i("INFO_DB", "onCreate: Sucesso ao deletar todos os itens");
         } catch (Exception e) {
             Log.i("INFO_DB", "onCreate: Erro ao deletar todos os itens");
@@ -117,11 +120,11 @@ public class ItemPedidoDAO {
 
     }
 
-    public  void limparCarrinho(){
+    public void limparCarrinho() {
         try {
-            write.delete(DbHelper.TABELA_EMPRESA, null,null);
-            write.delete(DbHelper.TABELA_ENTREGA, null,null);
-            write.delete(DbHelper.TABELA_ITEM_PEDIDO, null,null);
+            write.delete(DbHelper.TABELA_EMPRESA, null, null);
+            write.delete(DbHelper.TABELA_ENTREGA, null, null);
+            write.delete(DbHelper.TABELA_ITEM_PEDIDO, null, null);
             Log.i("INFO_DB", "onCreate: Sucesso ao limpar o carrinho");
         } catch (Exception e) {
             Log.i("INFO_DB", "onCreate: Erro ao limpar o carrinho");
