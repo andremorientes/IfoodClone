@@ -109,7 +109,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_produtos"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/adapter_carrinho"
+                    tools:itemCount="2"/>
 
                <LinearLayout
                    android:id="@+id/ll_btn_add_mais"
@@ -221,6 +223,7 @@
                         android:textSize="18sp"
                         tools:text=" 0,00 MZn" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

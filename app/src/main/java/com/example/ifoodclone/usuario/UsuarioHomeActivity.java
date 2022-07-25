@@ -18,7 +18,14 @@ public class UsuarioHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_usuario_home);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        NavController navController= Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 2) {
+            bottomNavigationView.setSelectedItemId(id);
+        }
+
     }
 }

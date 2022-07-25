@@ -367,6 +367,8 @@ public class CarrinhoActivity extends AppCompatActivity implements CarrinhoAdapt
                 if (pagamento == null) {
                     Intent intent = new Intent(this, UsuarioSelecionaPagamentoActivity.class);
                     startActivityForResult(intent, REQUEST_PAGAMENTO);
+                }else {
+                    startActivity(new Intent(this, UsuarioResumoPedidoActivity.class));
                 }
             }
 

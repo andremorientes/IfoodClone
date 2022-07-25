@@ -1,5 +1,9 @@
 package com.example.ifoodclone.model;
 
+import com.example.ifoodclone.helper.FirebaseHelper;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ServerValue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +25,44 @@ public class Pedido {
 
 
     public Pedido() {
+        DatabaseReference pedidoRef= FirebaseHelper.getDatabaseReference();
+        this.setId(pedidoRef.push().getKey());
+
+    }
+
+    public void salvar(){
+
+        DatabaseReference empresaRef= FirebaseHelper.getDatabaseReference()
+                .child("empresaPedidos")
+                .child(getIdEmpresa())
+                .child(getId());
+        empresaRef.setValue(this);
+
+        DatabaseReference dataPedidoEmpresaRef= empresaRef
+                .child("dataPedido");
+        dataPedidoEmpresaRef.setValue(ServerValue.TIMESTAMP);
+
+        DatabaseReference dataStatusPedidoEmpresaRef= empresaRef
+                .child("dataStatusPedido");
+        dataStatusPedidoEmpresaRef.setValue(ServerValue.TIMESTAMP);
+
+
+
+
+        DatabaseReference usuarioRef= FirebaseHelper.getDatabaseReference()
+                .child("usuarioPedidos")
+                .child(FirebaseHelper.getIdFirebase())
+                .child(getId());
+
+        usuarioRef.setValue(this);
+
+        DatabaseReference dataPedidoUsuarioaRef= usuarioRef
+                .child("dataPedido");
+        dataPedidoUsuarioaRef.setValue(ServerValue.TIMESTAMP);
+
+        DatabaseReference dataStatusPedidoUsuarioaRef= usuarioRef
+                .child("dataStatusPedido");
+        dataStatusPedidoUsuarioaRef.setValue(ServerValue.TIMESTAMP);
 
     }
 
