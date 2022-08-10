@@ -1,4 +1,4 @@
-package com.example.ifoodclone.fragment.empresa;
+package com.example.ifoodclone.fragment.usuario;
 
 import android.os.Bundle;
 
@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ifoodclone.R;
-import com.example.ifoodclone.adapter.EmpresaPedidoAdapter;
+import com.example.ifoodclone.adapter.UsuarioPedidoAdapter;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.model.Pedido;
 import com.example.ifoodclone.model.StatusPedido;
@@ -28,32 +28,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaPedidoAdapter.OnClickListener {
+public class UsuarioPedidoAndamentoFragment extends Fragment implements UsuarioPedidoAdapter.OnClickListener {
 
-    private List<Pedido> pedidoList = new ArrayList<>();
-    private EmpresaPedidoAdapter empresaPedidoAdapter;
+    private final List<Pedido> pedidoList = new ArrayList<>();
+    private UsuarioPedidoAdapter usuarioPedidoAdapter;
 
     private RecyclerView rv_pedidos;
     private ProgressBar progressBar;
     private TextView text_info;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_empresa_pedido_andamento, container, false);
+     View view = inflater.inflate(R.layout.fragment_usuario_pedido_andamento, container, false);
 
         iniciaComponentes(view);
         configRV();
         recuperaPedidos();
 
-        return view;
+     return  view;
     }
 
     private void recuperaPedidos() {
         DatabaseReference pedidoRef = FirebaseHelper.getDatabaseReference()
-                .child("empresaPedidos")
+                .child("usuarioPedidos")
                 .child(FirebaseHelper.getIdFirebase());
         pedidoRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -70,10 +69,10 @@ public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaP
                     text_info.setText("");
 
                 } else {
-                    text_info.setText("Nenhum pedido recebido");
+                    text_info.setText("Nenhum pedido efectuado");
                 }
                 progressBar.setVisibility(View.GONE);
-                empresaPedidoAdapter.notifyDataSetChanged();
+                usuarioPedidoAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -94,8 +93,8 @@ public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaP
     private void configRV() {
         rv_pedidos.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv_pedidos.setHasFixedSize(true);
-        empresaPedidoAdapter = new EmpresaPedidoAdapter(pedidoList, getContext(), this);
-        rv_pedidos.setAdapter(empresaPedidoAdapter);
+        usuarioPedidoAdapter = new UsuarioPedidoAdapter(pedidoList, getContext(), this);
+        rv_pedidos.setAdapter(usuarioPedidoAdapter);
     }
 
     private void iniciaComponentes(View view) {
@@ -107,13 +106,13 @@ public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaP
 
     }
 
+
     @Override
     public void OnClick(Pedido pedido, int rota) {
         if (rota == 0) {
-            Toast.makeText(getContext(), "Status", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Ajuda", Toast.LENGTH_SHORT).show();
         } else if (rota == 1) {
             Toast.makeText(getContext(), "Detalhes Pedido", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
