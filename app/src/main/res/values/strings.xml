@@ -11,4 +11,5 @@
     <string name="menu_config">Config</string>
 
     <string name="text_valor">MZ %1$s</string>
+    <string name="mais_item">mais MZ %1$d item</string>
 </resources>

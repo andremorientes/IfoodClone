@@ -58,6 +58,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/adapter_add_tambem.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/adapter_cardapio.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/adapter_carrinho.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/adapter_pedido_empresa.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/adapter_produto_cardapio.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/add_mais_item.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/bottom_sheet_item_carrinho.xml" value="0.17552083333333332" />
@@ -69,6 +70,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/endereco_select.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_config.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_pedido.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_pedido_andamento.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_pedido_finzalizado.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_empresa_produto.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_usuario.xml" value="0.16145833333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/IfoodClone/app/src/main/res/layout/fragment_usuario_home.xml" value="0.16145833333333334" />
