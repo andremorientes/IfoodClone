@@ -14,6 +14,11 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/bg_dialog_status</item>
+        <item name="android:windowMinWidthMinor">80%</item>
+    </style>
+
     <style name="ThemeProgressBar" parent="Theme.IfoodClone">
         <item name="colorAccent">@android:color/white</item>
 

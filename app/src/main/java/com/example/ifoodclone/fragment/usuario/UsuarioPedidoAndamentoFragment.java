@@ -1,5 +1,6 @@
 package com.example.ifoodclone.fragment.usuario;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.example.ifoodclone.adapter.UsuarioPedidoAdapter;
 import com.example.ifoodclone.helper.FirebaseHelper;
 import com.example.ifoodclone.model.Pedido;
 import com.example.ifoodclone.model.StatusPedido;
+import com.example.ifoodclone.usuario.PedidoDetalheActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -112,7 +114,10 @@ public class UsuarioPedidoAndamentoFragment extends Fragment implements UsuarioP
         if (rota == 0) {
             Toast.makeText(getContext(), "Ajuda", Toast.LENGTH_SHORT).show();
         } else if (rota == 1) {
-            Toast.makeText(getContext(), "Detalhes Pedido", Toast.LENGTH_SHORT).show();
+            Intent intent= new Intent(getActivity(), PedidoDetalheActivity.class);
+            intent.putExtra("pedidoSelecionado",pedido);
+            intent.putExtra("acesso","usuario");
+            startActivity(intent);
         }
     }
 }

@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:text="Pedidos"
         android:textSize="16sp"
-        android:textColor="@color/cor_principal"
         android:textAlignment="center"/>
 
     <com.google.android.material.appbar.AppBarLayout
