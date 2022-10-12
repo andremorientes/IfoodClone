@@ -166,9 +166,6 @@ public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaP
         if (pedido.getStatusPedido()== StatusPedido.ENTREGUE ||
                 pedido.getStatusPedido()== StatusPedido.CANCELADO_EMPRESA ||
         pedido.getStatusPedido()== StatusPedido.CANCELADO_USUARIO){
-            pedidoList.remove(pedido);
-            empresaPedidoAdapter.notifyDataSetChanged();
-
 
         }
 
@@ -212,8 +209,8 @@ public class EmpresaPedidoEndamentoFragment extends Fragment implements EmpresaP
     }
 
     private void addPedidoList(Pedido pedido) {
-        if (pedido.getStatusPedido() != StatusPedido.CANCELADO_EMPRESA &&
-                pedido.getStatusPedido() != StatusPedido.CANCELADO_USUARIO &&
+        if (pedido.getStatusPedido() != StatusPedido.CANCELADO_EMPRESA ||
+                pedido.getStatusPedido() != StatusPedido.CANCELADO_USUARIO ||
                 pedido.getStatusPedido() != StatusPedido.ENTREGUE) {
             pedidoList.add(pedido);
         }

@@ -72,9 +72,12 @@ public class Pedido  implements Serializable {
         DatabaseReference empresaRef= FirebaseHelper.getDatabaseReference()
                 .child("empresaPedidos")
                 .child(getIdEmpresa())
-                .child(getId())
-                .child("statusPedido");
+                .child(getId());
         empresaRef.setValue(this);
+
+        DatabaseReference dataPedidoEmpresaRef= empresaRef
+                .child("dataPedido");
+        dataPedidoEmpresaRef.setValue(ServerValue.TIMESTAMP);
 
         DatabaseReference dataStatusPedidoEmpresaRef= empresaRef
                 .child("dataStatusPedido");
@@ -90,6 +93,9 @@ public class Pedido  implements Serializable {
 
         usuarioRef.setValue(this);
 
+        DatabaseReference dataPedidoUsuarioaRef= usuarioRef
+                .child("dataPedido");
+        dataPedidoUsuarioaRef.setValue(ServerValue.TIMESTAMP);
 
         DatabaseReference dataStatusPedidoUsuarioaRef= usuarioRef
                 .child("dataStatusPedido");
