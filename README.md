@@ -1,6 +1,6 @@
 <h1>iFood Clone App</h1>
 
-> Status: Developing
+
 ### This is a clone of the iFood application developed in Java, integrated with Firebase for data storage and authentication via email. The application uses the Retrofit library to make API requests and provide an experience similar to iFood for food ordering.
 
 ## Key Features
