@@ -1,26 +1,30 @@
-iFood Clone App
+<h1>iFood Clone App</h1>
 
-Este é um clone do aplicativo iFood desenvolvido em Java, integrado com o Firebase para armazenamento de dados e autenticação via email. O aplicativo utiliza a biblioteca Retrofit para fazer solicitações à API e proporcionar uma experiência similar à do iFood para pedidos de comida.
+> Status: Developing
+### This is a clone of the iFood application developed in Java, integrated with Firebase for data storage and authentication via email. The application uses the Retrofit library to make API requests and provide an experience similar to iFood for food ordering.
 
-Recursos Principais
-Integração com Firebase: Armazenamento de dados em tempo real e autenticação de usuários por email.
-Retrofit: Utilização do Retrofit para fazer chamadas à API, permitindo que os usuários façam pedidos de comida de restaurantes locais.
-Interface de Usuário Amigável: Uma interface de usuário intuitiva e fácil de usar para navegar por restaurantes, menus e fazer pedidos.
-Gerenciamento de Pedidos: Os usuários podem visualizar o histórico de pedidos, acompanhar o status do pedido em tempo real e fazer pedidos anteriores novamente.
-Avaliações e Comentários: Possibilidade de avaliar e deixar comentários sobre restaurantes e pedidos.
-Requisitos
-Android Studio
-Conta no Firebase para configuração do projeto
-Conexão à internet
-Configuração
-Para executar este aplicativo, siga os seguintes passos:
+## Key Features
++ Integration with Firebase: Real-time data storage and user authentication via email.
++ Retrofit: Using Retrofit to make API calls, allowing users to order food from local restaurants.
++ Friendly User Interface: An intuitive and easy-to-use user interface for browsing restaurants, menus and placing orders.
++ Order Management: Users can view order history, track order status in real time, and place previous orders again.
++ Ratings and Comments: Possibility to rate and leave comments about restaurants and orders.
 
-Clone este repositório em seu ambiente local.
-Crie um projeto no Firebase e configure a autenticação por email.
-Substitua as configurações do Firebase no arquivo google-services.json.
-Execute o aplicativo no Android Studio e teste em um dispositivo Android ou emulador.
-Contribuição
-Sinta-se à vontade para contribuir para este projeto. Você pode abrir problemas (issues) ou enviar pull requests para melhorias, correções de bugs ou novos recursos.
+# Requirements
++ Android Studio
++ Firebase account for project configuration
++ Internet connection
++ Settings
 
-Licença
-Este projeto é licenciado sob a Licença MIT. Consulte o arquivo LICENSE para obter mais detalhes.
+## To run this application, follow the following steps:
+
++ Clone this repository to your local environment.
++ Create a Firebase project and configure email authentication.
++ Override the Firebase settings in the google-services.json file.
++ Run the app in Android Studio and test on an Android device or emulator.
+
+# Contribution
+Feel free to contribute to this project. You can open issues or submit pull requests for improvements, bug fixes or new features.
+
+License
+This project is licensed under the MIT License. See the LICENSE file for more details.
